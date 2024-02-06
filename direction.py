@@ -5,9 +5,9 @@ import io
 
 # Environment variables for paths
 # for data inside game_data folder
-root_path = os.getenv('ROOT_PATH')
+root_path = "/nfs/ltgroup/TORIN/for_manjil/game_data"
 # for verified.csv
-verified_root_path = os.getenv('DATASET')
+verified_root_path = "/nfs/ltgroup/TORIN/for_manjil"
 base_path = "/nfs/ltgroup/TORIN/for_manjil/game_data/"
 column_names = ['timestamp', 'posX', 'posY', 'angle', 'accelX', 'accelY', 'velocityX', 'velocityY', 'controlX',
                 'controlY', 'disable', 'userControl', 'userInputX', 'userInputY', 'isTouching', 'motionX', 'motionY',
@@ -94,7 +94,7 @@ player_data_files = find_unsuccessful_player_data_files(root_path, folder_names)
 print(len(player_data_files))
 
 
-def find_matching_entity_files(root_dir, player_file_pattern):
+def find_matching_entity_files():
     """
         Find entity files that match the level and attempt of player data files.
         Returns a dictionary mapping player files to their corresponding entity files.
@@ -124,7 +124,7 @@ root_dir = "/nfs/ltgroup/TORIN/for_manjil/game_data"
 player_file_pattern = os.path.join(root_dir, "**", "player.*.data.csv")
 
 # Find all matching entity files for each player data file
-player_entity_pairs = find_matching_entity_files(root_dir, player_file_pattern)
+player_entity_pairs = find_matching_entity_files()
 
 
 def calculate_distance(x1, y1, x2, y2):
@@ -158,7 +158,7 @@ def find_closest_entity(player_file, entity_files):
         distance = calculate_distance(player_pos[0], player_pos[1], entity_pos[0], entity_pos[1])
         entity_pos = (last_frame_entity['posX'][0], last_frame_entity['posY'][0])
 
-        if distance <= 3:
+        if distance <= 5:
             count += 1
 
         # Update closest entity if this one is closer
@@ -206,5 +206,5 @@ for player_file, entity_files in player_entity_pairs.items():
 results_df = pd.DataFrame(results)
 
 # Save the DataFrame to a CSV file
-results_df.to_csv('closest_entity_results.csv', index=False)
+results_df.to_csv('data/closest_entity_results.csv', index=False)
 

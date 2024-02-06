@@ -48,7 +48,7 @@ from matplotlib.patches import Patch
 legend_elements = [Patch(facecolor=colors[i], edgecolor='black', label=f'{i+1} Nearest Entities') for i in range(len(colors))]
 plt.legend(handles=legend_elements, title='Nearest Entities Count')
 
-plt.savefig('dot_product_histogram_colored_by_entity_count.png')
+plt.savefig('plot/dot_product_histogram_colored_by_entity_count.png')
 
 # Show the plot
 plt.show()
